@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 public class SquareTests {
 
     @Test
-
     void callCaclulateArea(){
         double result = Square.area(5.0);
         Assertions.assertEquals(25.0, result);
