@@ -1,14 +1,23 @@
 package ru.stqa.geometry.figures;
 
 
-public class Triangle {
+public record Triangle(double a, double b, double c) {
 
-    private double a, b, c;
+//    private double a, b, c;
 
-    public Triangle( double a, double b, double c) {
-        this.a = a;
-        this.b = b;
-        this.c = c;
+//    public Triangle( double a, double b, double c) {
+//        this.a = a;
+//        this.b = b;
+//        this.c = c;
+//    }
+
+    public Triangle {
+        if (a < 0 || b < 0 || c < 0) {
+            throw new IllegalArgumentException("Triangle side should be non-negative");
+        }
+        if( (a + b) < c || (a + c) < b || (c + b) < a ) {
+            throw new IllegalArgumentException("Sum two triangle side don't less third side");
+        }
     }
 
     public static void printTrianglePerimeter(Triangle p) {

@@ -17,4 +17,12 @@ public class TriangleTests {
         Assertions.assertEquals(9.0, new Triangle(2.0, 3.0, 4.0).perimeter());
     }
 
+    @Test
+    void cannotCreateTriangleWithNegativeSide() {
+        try {
+            new Triangle(-2.0, 3.0, 4.0);
+        } catch (IllegalArgumentException exception) {
+            System.out.println("Exception worked");
+        }
+    }
 }
