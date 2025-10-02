@@ -11,7 +11,7 @@ public class ContactRemovalTest extends TestBase{
         openContactPage();
         if (!isGroupPresent()) {
             driver.findElement(By.linkText("add new")).click();
-            createContact(new ContactData("Java", "Tester"));
+            createContact(new ContactData("Java", "Tester", "Russia", "111222333", "test@mail.ru"));
         }
         removeGroup();
     }
