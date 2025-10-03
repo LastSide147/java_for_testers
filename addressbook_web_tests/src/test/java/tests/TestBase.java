@@ -12,7 +12,7 @@ public class TestBase {
         if (app == null) {
             app = new ApplicationManager();
         }
-        app.init();
+        app.init("firefox");
     }
 //        if (ApplicationManager.driver == null) {
 //            ApplicationManager.driver = new FirefoxDriver();
@@ -24,14 +24,4 @@ public class TestBase {
 //            ApplicationManager.driver.findElement(By.xpath("//input[@value=\'Login\']")).click();
 //        }
 //    }
-
-    //    protected boolean isElementPresent(By locator) {
-//        try {
-//            driver.findElement(locator);
-//            return true;
-//        } catch (NoSuchElementException exception) {
-//            return false;
-//        }
-//    }
-
 }
