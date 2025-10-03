@@ -7,15 +7,8 @@ public class ContactCreationTest extends TestBase{
 
     @Test
     public void CanCreateContact() {
-        openContactPage();
-        createContact(new ContactData("Java", "Tester", "Russia", "111222333", "test@mail.ru"));
+        app.openContactPage();
+        app.createContact(new ContactData("Java", "Tester", "Russia", "111222333", "test@mail.ru"));
     }
 
-//    @Test
-//    public void CanCreateContactWithNameOnly() {
-//        openContactPage();
-//        var emptyContact = new ContactData();
-//        var contactWithName = emptyContact.withFirstname("New Name");
-//        createContact(contactWithName);
-//    }
 }
