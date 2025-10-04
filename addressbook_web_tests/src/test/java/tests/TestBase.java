@@ -12,16 +12,6 @@ public class TestBase {
         if (app == null) {
             app = new ApplicationManager();
         }
-        app.init("firefox");
+        app.init(System.getProperty("browser", "firefox"));
     }
-//        if (ApplicationManager.driver == null) {
-//            ApplicationManager.driver = new FirefoxDriver();
-//            Runtime.getRuntime().addShutdownHook(new Thread(ApplicationManager.driver::quit));
-//            ApplicationManager.driver.get("http://localhost/addressbook/");
-//            ApplicationManager.driver.manage().window().setSize(new Dimension(850, 694));
-//            ApplicationManager.driver.findElement(By.name("user")).sendKeys("admin");
-//            ApplicationManager.driver.findElement(By.name("pass")).sendKeys("secret");
-//            ApplicationManager.driver.findElement(By.xpath("//input[@value=\'Login\']")).click();
-//        }
-//    }
 }
