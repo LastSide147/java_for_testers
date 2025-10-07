@@ -1,8 +1,8 @@
 package ru.stqa.geometry;
 
-import ru.stqa.geometry.figures.Rectangle;
-import ru.stqa.geometry.figures.Square;
-import ru.stqa.geometry.figures.Triangle;
+import geometry.figures.Rectangle;
+import geometry.figures.Square;
+import geometry.figures.Triangle;
 
 public class Geometry {
     public static void main(String[] args) {

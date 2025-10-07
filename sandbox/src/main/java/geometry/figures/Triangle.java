@@ -1,4 +1,4 @@
-package ru.stqa.geometry.figures;
+package geometry.figures;
 
 
 import java.util.Objects;
