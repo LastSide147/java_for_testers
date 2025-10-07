@@ -40,6 +40,13 @@ public class ContactHelper {
 
     public void removeContact() {
         openContactPage();
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
         ApplicationManager.driver.findElement(By.name("selected[]")).click();
         ApplicationManager.driver.findElement(By.name("delete")).click();
         ApplicationManager.driver.findElement(By.linkText("home page")).click();
