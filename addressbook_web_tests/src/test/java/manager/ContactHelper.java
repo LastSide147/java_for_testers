@@ -12,9 +12,9 @@ public class ContactHelper {
     }
 
     public void openContactPage() {
-        if (! manager.isElementPresent(By.name("new"))) {
+//        if (! manager.isElementPresent(By.name("new"))) {
             manager.driver.findElement(By.linkText("add new")).click();
-        }
+//        }
     }
 
     public boolean isContactPresent() {
@@ -46,7 +46,6 @@ public class ContactHelper {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-
         ApplicationManager.driver.findElement(By.name("selected[]")).click();
         ApplicationManager.driver.findElement(By.name("delete")).click();
         ApplicationManager.driver.findElement(By.linkText("home page")).click();
