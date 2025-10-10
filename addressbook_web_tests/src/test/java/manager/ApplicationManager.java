@@ -9,7 +9,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class ApplicationManager {
 
-    public static WebDriver driver;
+    protected WebDriver driver;
 
     private LoginHelper session;
 
