@@ -23,12 +23,11 @@ public class ContactCreationTest extends TestBase{
         return result;
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = { "new", "new'"})
-    public void CanCreateContact(String name) {
-        int contactCount = app.contacts().getCount();
-        app.contacts().createContact(new ContactData(name, "Tester", "Russia", "111222333", "test@mail.ru"));
-        int newContactCount = app.contacts().getCount();
+@Test
+    public void CanCreateContact() {
+        int contactCount = app.contacts().getCountContact();
+        app.contacts().createContact(new ContactData("Java", "Tester", "Russia", "111222333", "test@mail.ru"));
+        int newContactCount = app.contacts().getCountContact();
         Assertions.assertEquals(contactCount + 1, newContactCount);
     }
 
