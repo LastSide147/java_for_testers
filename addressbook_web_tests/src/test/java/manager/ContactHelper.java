@@ -12,7 +12,7 @@ public class ContactHelper {
     }
 
     public void openContactPage() {
-            manager.driver.findElement(By.linkText("add new")).click();
+        manager.driver.findElement(By.linkText("home")).click();
     }
 
     public boolean isContactPresent() {
@@ -49,4 +49,8 @@ public class ContactHelper {
         manager.driver.findElement(By.linkText("Logout")).click();
     }
 
+    public int getCount() {
+        openContactPage();
+        return manager.driver.findElements(By.name("selected[]")).size();
+    }
 }

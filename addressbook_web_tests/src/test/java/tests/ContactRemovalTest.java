@@ -11,7 +11,7 @@ public class ContactRemovalTest extends TestBase{
     @Test
     public void CanRemoveContact() {
         if (!app.contacts().isContactPresent()) {
-//            ApplicationManager.driver.findElement(By.linkText("add new")).click();
+//                 ApplicationManager.driver.findElement(By.linkText("add new")).click();
             app.contacts().createContact(new ContactData("Java", "Tester", "Russia", "111222333", "test@mail.ru"));
         }
         app.contacts().removeContact();

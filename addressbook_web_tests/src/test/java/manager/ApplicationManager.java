@@ -10,6 +10,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class ApplicationManager {
 
     protected WebDriver driver;
+//    public WebDriver driver;
 
     private LoginHelper session;
 
