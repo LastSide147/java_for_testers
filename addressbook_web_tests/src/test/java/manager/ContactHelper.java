@@ -54,4 +54,13 @@ public class ContactHelper {
 //        openContactPage();
         return manager.driver.findElements(By.name("selected[]")).size();
     }
+
+//    public void removeAllContact() {
+//        selectAllGroups();
+//        removeSelectedFroups();
+//    }
+
+//    private void removeSelectedFroups() {
+//        click(By.name("delete"));
+//    }
 }
