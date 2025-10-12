@@ -44,7 +44,7 @@ public class ContactCreationTest extends TestBase{
         Assertions.assertEquals(contactCount + 1, newContactCount);
     }
 
-    
+
     public static List<ContactData> negativeContactProvider() {
         var result = new ArrayList<ContactData>(List.of(
                 new ContactData("Static Name' ", "", "", "", "")));
