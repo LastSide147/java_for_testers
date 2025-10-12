@@ -11,17 +11,17 @@ public class ContactHelper {
        this.manager = manager;
     }
 
-    public void openContactPage() {
-        manager.driver.findElement(By.linkText("home")).click();
-    }
+//    public void openContactPage() {
+//        manager.driver.findElement(By.linkText("home")).click();
+//    }
 
     public boolean isContactPresent() {
-        openContactPage();
+//        openContactPage();
         return manager.isElementPresent(By.name("selected[]"));
     }
 
     public void createContact(ContactData contact) {
-        openContactPage();
+//        openContactPage();
         manager.driver.findElement(By.linkText("add new")).click();
         manager.driver.findElement(By.name("firstname")).click();
         manager.driver.findElement(By.name("firstname")).sendKeys(contact.firstname());
@@ -38,7 +38,7 @@ public class ContactHelper {
     }
 
     public void removeContact() {
-        openContactPage();
+//        openContactPage();
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -51,7 +51,7 @@ public class ContactHelper {
     }
 
     public int getCountContact() {
-        openContactPage();
+//        openContactPage();
         return manager.driver.findElements(By.name("selected[]")).size();
     }
 }
