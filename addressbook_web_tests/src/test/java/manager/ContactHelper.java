@@ -34,7 +34,7 @@ public class ContactHelper {
         manager.driver.findElement(By.name("email")).click();
         manager.driver.findElement(By.name("email")).sendKeys(contact.email());
         manager.driver.findElement(By.cssSelector("input:nth-child(75)")).click();
-//        manager.driver.findElement(By.linkText("home page")).click();
+        manager.driver.findElement(By.linkText("home page")).click();
     }
 
     public void removeContact() {
