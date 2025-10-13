@@ -3,57 +3,90 @@ package manager;
 import model.ContactData;
 import org.openqa.selenium.By;
 
-public class ContactHelper {
+import java.util.ArrayList;
+import java.util.List;
 
-    private final ApplicationManager manager;
+public class ContactHelper extends HelperBase{
+
+//    private final ApplicationManager manager;
 
     public ContactHelper(ApplicationManager manager) {
-       this.manager = manager;
+       super(manager);
     }
 
-//    public void openContactPage() {
-//        manager.driver.findElement(By.linkText("home")).click();
-//    }
-
     public boolean isContactPresent() {
-//        openContactPage();
         return manager.isElementPresent(By.name("selected[]"));
     }
 
     public void createContact(ContactData contact) {
-//        openContactPage();
-        manager.driver.findElement(By.linkText("add new")).click();
-        manager.driver.findElement(By.name("firstname")).click();
-        manager.driver.findElement(By.name("firstname")).sendKeys(contact.firstname());
-        manager.driver.findElement(By.name("lastname")).click();
-        manager.driver.findElement(By.name("lastname")).sendKeys(contact.lastname());
-        manager.driver.findElement(By.name("address")).click();
-        manager.driver.findElement(By.name("address")).sendKeys(contact.address());
-        manager.driver.findElement(By.name("home")).click();
-        manager.driver.findElement(By.name("home")).sendKeys(contact.phone());
-        manager.driver.findElement(By.name("email")).click();
-        manager.driver.findElement(By.name("email")).sendKeys(contact.email());
-        manager.driver.findElement(By.cssSelector("input:nth-child(75)")).click();
-        manager.driver.findElement(By.linkText("home page")).click();
+        initContactCreation();
+        fillForContact(contact);
+        submitCreateCreation();
+        returnToContactPage();
     }
 
-    public void removeContact() {
-//        openContactPage();
+    public void removeContact(ContactData contact) {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        manager.driver.findElement(By.name("selected[]")).click();
-        manager.driver.findElement(By.name("delete")).click();
-        manager.driver.findElement(By.linkText("home page")).click();
-        manager.driver.findElement(By.linkText("Logout")).click();
+//        manager.driver.findElement(By.name("selected[]")).click();
+        selectContact();
+        removeSelectedContact();
+        returnToContactPage();
+        click(By.linkText("Logout"));
     }
+
+    private void removeSelectedContact() {
+        click(By.name("delete"));
+    }
+
+    private void selectContact()
+    {
+        click(By.name("selected[]"));
+    }
+
+    private void initContactCreation() {
+        click(By.linkText("add new"));
+    }
+
+    private void fillForContact(ContactData contact) {
+        type(By.name("firstname"), contact.firstname());
+        type(By.name("lastname"), contact.lastname());
+        type(By.name("address"), contact.address());
+        type(By.name("home"), contact.phone());
+        type(By.name("email"), contact.email());
+    }
+
+    private void submitCreateCreation() {
+        click(By.cssSelector("input:nth-child(75)"));
+    }
+
+
+    private void returnToContactPage() {
+        click(By.linkText("home page"));
+    }
+
 
     public int getCountContact() {
 //        openContactPage();
         return manager.driver.findElements(By.name("selected[]")).size();
     }
+
+    public List<ContactData> getListContact() {
+        var contacts = new ArrayList<ContactData>();
+        var spans = manager.driver.findElements(By.cssSelector("td.center"));
+        for (var td : tds) {
+            var name = td.getText();
+            var checkbox = td.findElement(By.name("selected[]"));
+            var id = checkbox.getAttribute("value");
+            contacts.add(new ContactData().withId(id).withFirstname(firstname));
+        }
+        return contacts;
+    }
+
+
 
 //    public void removeAllContact() {
 //        selectAllGroups();
