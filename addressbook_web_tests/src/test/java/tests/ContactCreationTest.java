@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactCreationTest extends TestBase{
+public class ContactCreationTest extends TestBase {
 
     public static List<ContactData> contactProvider() {
         var result = new ArrayList<ContactData>();
@@ -23,17 +23,20 @@ public class ContactCreationTest extends TestBase{
                                     .withAddress(address)
                                     .withPhone(phone)
                                     .withEmail((email)));
+                        }
+                    }
                 }
             }
         }
-        for( int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             result.add(new ContactData()
-                            .withFirstname(randomString(i * 10))
-                            .withLastname(randomString(i * 10))
-                            .withAddress(randomString(i * 10))
-                            .withPhone(randomString(i * 10))
-                            .withEmail(randomString(i * 10))
-            ));
+                    .withFirstname(randomString(i * 10))
+                    .withLastname(randomString(i * 10))
+                    .withAddress(randomString(i * 10))
+                    .withPhone(randomString(i * 10))
+                    .withEmail(randomString(i * 10))
+            );
+            ;
         }
         return result;
     }

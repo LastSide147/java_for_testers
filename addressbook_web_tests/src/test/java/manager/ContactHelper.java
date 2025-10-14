@@ -8,15 +8,13 @@ import java.util.List;
 
 public class ContactHelper extends HelperBase{
 
-//    private final ApplicationManager manager;
-
     public ContactHelper(ApplicationManager manager) {
        super(manager);
     }
 
-    public boolean isContactPresent() {
-        return manager.isElementPresent(By.name("selected[]"));
-    }
+//    public boolean isContactPresent() {
+//        return manager.isElementPresent(By.name("selected[]"));
+//    }
 
     public void createContact(ContactData contact) {
         initContactCreation();
@@ -31,8 +29,7 @@ public class ContactHelper extends HelperBase{
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-//        manager.driver.findElement(By.name("selected[]")).click();
-        selectContact();
+        selectContact(contact);
         removeSelectedContact();
         returnToContactPage();
         click(By.linkText("Logout"));
@@ -42,9 +39,9 @@ public class ContactHelper extends HelperBase{
         click(By.name("delete"));
     }
 
-    private void selectContact()
+    private void selectContact(ContactData contact)
     {
-        click(By.name("selected[]"));
+        click(By.cssSelector(String.format("input[value='%s']", contact.id())));
     }
 
     private void initContactCreation() {
@@ -70,17 +67,17 @@ public class ContactHelper extends HelperBase{
 
 
     public int getCountContact() {
-//        openContactPage();
         return manager.driver.findElements(By.name("selected[]")).size();
     }
 
     public List<ContactData> getListContact() {
         var contacts = new ArrayList<ContactData>();
-        var spans = manager.driver.findElements(By.cssSelector("td.center"));
-        for (var td : tds) {
-            var name = td.getText();
-            var checkbox = td.findElement(By.name("selected[]"));
+        var trs = manager.driver.findElements(By.cssSelector("tr[name='entry']"));
+        for (var tr : trs) {
+            var name = tr.getText();
+            var checkbox = tr.findElement(By.name("selected[]"));
             var id = checkbox.getAttribute("value");
+            var firstname = tr.findElements(By.tagName("td")).get(1).getText();
             contacts.add(new ContactData().withId(id).withFirstname(firstname));
         }
         return contacts;
