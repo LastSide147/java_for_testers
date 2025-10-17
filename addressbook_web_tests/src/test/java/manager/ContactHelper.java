@@ -28,7 +28,7 @@ public class ContactHelper extends HelperBase{
         selectContact(contact);
         removeSelectedContact();
         returnToContactPage();
-        click(By.linkText("Logout"));
+//        click(By.linkText("Logout"));
     }
 
     public void modifyContact(ContactData contact, ContactData modifiedContact) {
@@ -102,14 +102,15 @@ public class ContactHelper extends HelperBase{
         return contacts;
     }
 
+    public void removeAllContact() {
+        selectAllContact();
+        removeSelectedContact();
+    }
 
-
-//    public void removeAllContact() {
-//        selectAllGroups();
-//        removeSelectedFroups();
-//    }
-
-//    private void removeSelectedFroups() {
-//        click(By.name("delete"));
-//    }
+    private void selectAllContact() {
+        var checkboxes = manager.driver.findElements(By.name("selected[]"));
+        for (var checkbox : checkboxes) {
+            checkbox.click();
+        }
+    }
 }
