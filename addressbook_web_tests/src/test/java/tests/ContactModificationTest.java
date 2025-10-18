@@ -19,7 +19,7 @@ public class ContactModificationTest extends TestBase{
         var oldContacts = app.contacts().getListContact();
         var rnd = new Random();
         var index = rnd.nextInt(oldContacts.size());
-        var testContactData = new ContactData().withFirstname("change firstname");
+        var testContactData = new ContactData().withFirstname("MODIFIED firstname");
         app.contacts().modifyContact(oldContacts.get(index), testContactData);
         var newContacts = app.contacts().getListContact();
         var expectedList = new ArrayList<>(oldContacts);

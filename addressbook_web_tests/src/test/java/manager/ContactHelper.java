@@ -28,12 +28,10 @@ public class ContactHelper extends HelperBase{
         selectContact(contact);
         removeSelectedContact();
         returnToContactPage();
-//        click(By.linkText("Logout"));
     }
 
     public void modifyContact(ContactData contact, ContactData modifiedContact) {
-        selectContact(contact);
-        initContactModification();
+        initContactModification(contact);
         fillContactForm(modifiedContact);
         submitContactModification();
         returnToHomePage();
@@ -44,15 +42,15 @@ public class ContactHelper extends HelperBase{
     }
 
     private void submitContactModification() {
-            click(By.name("update"));
+        click(By.name("update"));
     }
 
     private void fillContactForm(ContactData contact) {
-        type(By.name("change firstname"), contact.firstname());
+        type(By.name("firstname"), contact.firstname());
     }
 
-    private void initContactModification() {
-        click(By.cssSelector("a[href='edit.php?id=101'] img[alt='Edit']"));
+    private void initContactModification(ContactData contact) {
+        click(By.cssSelector(String.format("a[href*='edit.php?id=%s'] img", contact.id())));
     }
 
     private void removeSelectedContact() {
