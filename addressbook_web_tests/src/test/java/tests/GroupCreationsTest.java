@@ -19,8 +19,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Properties;
 
 public class GroupCreationsTest extends TestBase {
+    private Properties properties;
 
     public static List<GroupData> groupProvider() throws IOException {
         var result = new ArrayList<GroupData>();
@@ -88,6 +90,7 @@ public class GroupCreationsTest extends TestBase {
 
     @Test
     public void canCreateGroupWithNameOnly() {
-        app.groups().createGroup(new GroupData().withName("some name"));
+//        app.groups().createGroup(new GroupData().withName("some name"));
+        app.groups().createGroup(new GroupData().withName(properties.getProperty("web.SomeName")));
     }
 }
