@@ -22,7 +22,7 @@ public class HelperBase {
     }
 
     protected void attach(By locator, String file) {
-        click(locator);
+//        click(locator);
         manager.driver.findElement(locator).sendKeys(Paths.get(file).toAbsolutePath().toString());
     }
 }
