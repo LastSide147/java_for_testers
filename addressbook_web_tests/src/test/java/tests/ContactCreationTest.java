@@ -38,9 +38,8 @@ public class ContactCreationTest extends TestBase {
                     .withAddress(CommonFunctions.randomString(i * 10))
                     .withPhone(CommonFunctions.randomString(i * 10))
                     .withEmail(CommonFunctions.randomString(i * 10))
-//                    .withPhoto("src/test/resources/images/avatar.png")
+                    .withPhoto("src/test/resources/images/avatar.png")
             );
-            ;
         }
         return result;
     }
