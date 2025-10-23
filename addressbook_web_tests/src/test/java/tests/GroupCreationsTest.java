@@ -1,6 +1,7 @@
 package tests;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import common.CommonFunctions;
@@ -20,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.JsonNode;
 
 public class GroupCreationsTest extends TestBase {
     private Properties properties;
@@ -43,29 +46,63 @@ public class GroupCreationsTest extends TestBase {
 //                line = breader.readLine();
 //            }
 //        }
-//        var json = Files.readString(Paths.get("groups.json"));
-        var mapper = new XmlMapper();
-
-        var value = mapper.readValue(new File("xml"), new TypeReference<List<GroupData>>() {});
+        var json = Files.readString(Paths.get("groups.json"));
+        ObjectMapper mapper = new ObjectMapper();
+//        var mapper = new XmlMapper();
+        var value = mapper.readValue(json, new TypeReference<List<GroupData>>() {});
         result.addAll(value);
         return result;
     }
 
+    public static List<GroupData> singleRandomGroup() {
+        return List.of(new GroupData()
+                .withId(CommonFunctions.randomString(10))
+                .withName(CommonFunctions.randomString(20))
+                .withFooter(CommonFunctions.randomString(30)));
+    }
+
+//    @ParameterizedTest
+//    @MethodSource("groupProvider")
+//    public void canCreateMultipleGroups(GroupData group) {
+//        var oldGroups = app.groups().getList();
+//        app.groups().createGroup(group);
+//        var newGroups = app.groups().getList();
+//        Comparator<GroupData> compareById = (o1, o2) -> {
+//            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+//        };
+//        newGroups.sort(compareById);
+//
+//        var expectedList = new ArrayList<>(oldGroups);
+//        expectedList.add(group.withId(newGroups.get(newGroups.size() - 1).id()).withHeader("").withFooter(""));
+//        expectedList.sort(compareById);
+//        Assertions.assertEquals(newGroups, expectedList);
+//    }
+//
+//    public static List<GroupData> negativeGroupProvider() {
+//        var result = new ArrayList<GroupData>(List.of(
+//                new GroupData("", "group name'", "", "")));
+//        return result;
+//    }
+
+    // LESSON 6 //
     @ParameterizedTest
-    @MethodSource("groupProvider")
-    public void canCreateMultipleGroups(GroupData group) {
-        var oldGroups = app.groups().getList();
+    @MethodSource("singleRandomGroup")
+    public void canCreateGroup(GroupData group) {
+        var oldGroups = app.jdbc().getGroupList();
         app.groups().createGroup(group);
-        var newGroups = app.groups().getList();
+        var newGroups = app.jdbc().getGroupList();
         Comparator<GroupData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
         newGroups.sort(compareById);
+        var maxId = newGroups.get(newGroups.size() - 1).id();
 
         var expectedList = new ArrayList<>(oldGroups);
-        expectedList.add(group.withId(newGroups.get(newGroups.size() - 1).id()).withHeader("").withFooter(""));
+        expectedList.add(group.withId(maxId));
         expectedList.sort(compareById);
         Assertions.assertEquals(newGroups, expectedList);
+
+        var newUiGroups = app.groups().getList();
     }
 
     public static List<GroupData> negativeGroupProvider() {
@@ -73,6 +110,7 @@ public class GroupCreationsTest extends TestBase {
                 new GroupData("", "group name'", "", "")));
         return result;
     }
+
 
     @ParameterizedTest
     @MethodSource("negativeGroupProvider")
@@ -86,11 +124,5 @@ public class GroupCreationsTest extends TestBase {
     @Test
     public void canCreateGroupWithEmptyName() {
         app.groups().createGroup(new GroupData());
-    }
-
-    @Test
-    public void canCreateGroupWithNameOnly() {
-//        app.groups().createGroup(new GroupData().withName("some name"));
-        app.groups().createGroup(new GroupData().withName(properties.getProperty("web.SomeName")));
     }
 }

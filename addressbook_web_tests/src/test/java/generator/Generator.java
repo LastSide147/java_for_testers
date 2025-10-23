@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import common.CommonFunctions;
+import model.ContactData;
 import model.GroupData;
 import org.junit.jupiter.params.ParameterizedTest;
 
@@ -14,6 +15,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 public class Generator {
 
@@ -65,8 +67,20 @@ public class Generator {
     }
 
     private Object genetaredContacts() {
+//        var result = new ArrayList<ContactData>();
+//        for (int i = 0; i < count; i++) {
+//            result.add(new ContactData()
+//                    .withFirstname(CommonFunctions.randomString(i * 10))
+//                    .withLastname(CommonFunctions.randomString(i * 10))
+//                    .withAddress(CommonFunctions.randomString(i * 10))
+//                    .withPhone(CommonFunctions.randomString(i * 10))
+//                    .withEmail(CommonFunctions.randomString(i * 10))
+//                    .withPhoto("src/test/resources/images/avatar.png");
+//        }
+//        return result;
         return null;
     }
+
 
         private void save(Object data) throws IOException {
             if ("json".equals(format)) {
