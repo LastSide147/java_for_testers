@@ -14,7 +14,7 @@ public class ContactHelper extends HelperBase{
 
     public void createContact(ContactData contact) {
         initContactCreation();
-        fillForContact(contact);
+        fillContactForm(contact);
         submitCreateCreation();
         returnToContactPage();
     }
@@ -45,10 +45,6 @@ public class ContactHelper extends HelperBase{
         click(By.name("update"));
     }
 
-    private void fillContactForm(ContactData contact) {
-        type(By.name("firstname"), contact.firstname());
-    }
-
     private void initContactModification(ContactData contact) {
         click(By.cssSelector(String.format("a[href*='edit.php?id=%s'] img", contact.id())));
     }
@@ -57,16 +53,16 @@ public class ContactHelper extends HelperBase{
         click(By.name("delete"));
     }
 
-    private void selectContact(ContactData contact)
+    private void selectContact(ContactData center)
     {
-        click(By.cssSelector(String.format("input[value='%s']", contact.id())));
+        click(By.cssSelector(String.format("input[value='%s']", center.id())));
     }
 
     private void initContactCreation() {
         click(By.linkText("add new"));
     }
 
-    private void fillForContact(ContactData contact) {
+    private void fillContactForm(ContactData contact) {
         type(By.name("firstname"), contact.firstname());
         type(By.name("lastname"), contact.lastname());
         attach(By.name("photo"), contact.photo());
@@ -91,7 +87,7 @@ public class ContactHelper extends HelperBase{
         var contacts = new ArrayList<ContactData>();
         var trs = manager.driver.findElements(By.cssSelector("tr[name='entry']"));
         for (var tr : trs) {
-            var name = tr.getText();
+//            var name = tr.getText();
             var checkbox = tr.findElement(By.name("selected[]"));
             var id = checkbox.getAttribute("value");
             var lastname = tr.findElements(By.tagName("td")).get(1).getText();
