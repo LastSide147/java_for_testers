@@ -2,7 +2,7 @@ package model;
 
 public record ContactData(String id, String firstname, String lastname, String address, String phone, String email) {
 
-    public ContactData (){
+    public ContactData () {
         this("", "", "", "", "", "");
     }
 

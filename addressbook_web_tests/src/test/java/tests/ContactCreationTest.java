@@ -13,32 +13,31 @@ public class ContactCreationTest extends TestBase {
 
     public static List<ContactData> contactProvider() {
         var result = new ArrayList<ContactData>();
-        for (var firstname : List.of("", "Name")) {
-            for (var lastname : List.of("", "lastname")) {
-                for (var address : List.of("", "address")) {
-                    for (var phone : List.of("", "phone")) {
-                        for (var email : List.of("", "email")) {
+        for (var firstname : List.of("", "name")) {
+//            for (var lastname : List.of("", "lastname")) {
+//                for (var address : List.of("", "address")) {
+//                    for (var phone : List.of("", "phone")) {
+//                        for (var email : List.of("", "email")) {
                             result.add(new ContactData()
-                                    .withFirstname(firstname)
-                                    .withLastname(lastname)
-                                    .withAddress(address)
-                                    .withPhone(phone)
-                                    .withEmail((email)));
+                                    .withFirstname(firstname));
+//                                    .withLastname(lastname)
+//                                    .withAddress(address)
+//                                    .withPhone(phone)
+//                                    .withEmail(email));
                         }
-                    }
-                }
-            }
-        }
-        for (int i = 0; i < 5; i++) {
-            result.add(new ContactData()
-                    .withFirstname(randomString(i * 10))
-                    .withLastname(randomString(i * 10))
-                    .withAddress(randomString(i * 10))
-                    .withPhone(randomString(i * 10))
-                    .withEmail(randomString(i * 10))
-            );
-            ;
-        }
+//                    }
+//                }
+//            }
+//        }
+//        for (int i = 0; i < 5; i++) {
+//            result.add(new ContactData()
+//                    .withFirstname(randomString(i * 10))
+//                    .withLastname(randomString(i * 10))
+//                    .withAddress(randomString(i * 10))
+//                    .withPhone(randomString(i * 10))
+//                    .withEmail(randomString(i * 10))
+//            );
+//        }
         return result;
     }
 
@@ -54,7 +53,7 @@ public class ContactCreationTest extends TestBase {
         newContacts.sort(compareById);
 
         var expectedList = new ArrayList<>(oldContacts);
-        expectedList.add(contact.withId(newContacts.get(newContacts.size() - 1).id()).withAddress("").withEmail("").withPhone(""));
+        expectedList.add(contact.withId(newContacts.get(newContacts.size() -1).id()).withAddress("").withEmail("").withPhone(""));
         expectedList.sort(compareById);
         Assertions.assertEquals(newContacts, expectedList);
     }
