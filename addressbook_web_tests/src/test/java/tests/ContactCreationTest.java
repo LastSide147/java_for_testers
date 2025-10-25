@@ -20,7 +20,7 @@ public class ContactCreationTest extends TestBase {
                         for (var email : List.of("", "email")) {
                             result.add(new ContactData()
                                     .withFirstname(firstname)
-                                    .withFirstname(lastname)
+                                    .withLastname(lastname)
                                     .withAddress(address)
                                     .withPhone(phone)
                                     .withEmail((email)));

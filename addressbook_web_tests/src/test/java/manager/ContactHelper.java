@@ -28,7 +28,6 @@ public class ContactHelper extends HelperBase{
         selectContact(contact);
         removeSelectedContact();
         returnToContactPage();
-//        click(By.linkText("Logout"));
     }
 
     public void modifyContact(ContactData contact, ContactData modifiedContact) {
