@@ -12,14 +12,14 @@ public class ContactHelper extends HelperBase{
        super(manager);
     }
 
-    public void createContact(ContactData contact) {
+    public void create(ContactData contact) {
         initContactCreation();
         fillForContact(contact);
         submitCreateCreation();
         returnToContactPage();
     }
 
-    public void removeContact(ContactData contact) {
+    public void remove(ContactData contact) {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
