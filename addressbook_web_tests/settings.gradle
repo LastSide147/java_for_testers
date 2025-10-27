@@ -1,2 +1,1 @@
 rootProject.name = 'addressbook_web_tests'
-include 'src:test:recources'
