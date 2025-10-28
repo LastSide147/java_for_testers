@@ -1,14 +1,17 @@
-[ {
+[
+  {
   "id" : "",
   "name" : "",
   "header" : "",
   "footer" : ""
-}, {
+},
+  {
   "id" : "",
-  "name" : "jpcstdbock",
-  "header" : "qgjmuvtvub",
-  "footer" : "efewzzbfpq"
-}, {
+  "name" : "JSON",
+  "header" : "Exercise 13",
+  "footer" : "ABCD"
+}
+, {
   "id" : "",
   "name" : "xychsecdrmhvzjipomtt",
   "header" : "mywuqahtolnokceqjdyg",

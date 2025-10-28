@@ -32,7 +32,7 @@ public class GroupCreationsTest extends TestBase {
 //        }
 
         var json = "";
-        try (var reader = new FileReader("groups.json");
+        try (var reader = new FileReader("groupString.json");
              var breader = new BufferedReader(reader)
         ) {
             var line = breader.readLine();
