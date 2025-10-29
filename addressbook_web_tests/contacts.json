@@ -1,17 +1,11 @@
-[ {
-  "id" : "",
-  "firstname" : "",
-  "lastname" : "",
-  "address" : "",
-  "phone" : "",
-  "email" : "",
+[
+  {
+  "id" : "123",
+  "firstname" : "Java",
+  "lastname" : "Tester",
+  "address" : "Software Testing",
+  "phone" : "123-321-231",
+  "email" : "123@mail.com",
   "photo" : ""
-}, {
-  "id" : "",
-  "firstname" : "gswjcjgbal",
-  "lastname" : "ikogguatxz",
-  "address" : "mdyalbawcd",
-  "phone" : "lsnjiknybf",
-  "email" : "nlhaepfiro",
-  "photo" : ""
-} ]
+}
+]
