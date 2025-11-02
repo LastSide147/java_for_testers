@@ -29,6 +29,5 @@ public class GroupModificationTest extends TestBase {
         newGroups.sort(compareById);
         expectedList.sort(compareById);
         Assertions.assertEquals(newGroups, expectedList);
-
     }
 }

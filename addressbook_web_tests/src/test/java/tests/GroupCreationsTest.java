@@ -72,8 +72,6 @@ public class GroupCreationsTest extends TestBase {
         expectedList.add(group.withId(maxId));
         expectedList.sort(compareById);
         Assertions.assertEquals(newGroups, expectedList);
-
-        var newUiGroups = app.groups().getList();
     }
 
     public static List<GroupData> negativeGroupProvider() {

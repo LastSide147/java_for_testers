@@ -70,6 +70,15 @@ public class ContactCreationTest extends TestBase {
         return result;
     }
 
+    public static List<ContactData> singleRandomContact() throws IOException {
+        return List.of(new ContactData()
+                .withLastname(CommonFunctions.randomString(5))
+                .withFirstname(CommonFunctions.randomString(5))
+                .withAddress(CommonFunctions.randomString(5))
+                .withEmail(CommonFunctions.randomString(5))
+                .withPhone(CommonFunctions.randomString(5)));
+    }
+
     @ParameterizedTest
     @MethodSource("contactProvider")
     public void canCreateMultipleContacts(ContactData contact) {
@@ -111,7 +120,6 @@ public class ContactCreationTest extends TestBase {
         app.contacts().create(contact, group);
         var newRelated = app.hbm().getContactsInGroup(group);
         Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());
-
     }
 
 
