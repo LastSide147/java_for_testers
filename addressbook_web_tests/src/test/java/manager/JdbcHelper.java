@@ -19,7 +19,7 @@ public class JdbcHelper extends HelperBase{
         {
             while (result.next()) {
                 groups.add(new GroupData()
-                        .withId(result.getString("groiup_id"))
+                        .withId(result.getString("group_id"))
                         .withName(result.getString("group_name"))
                         .withHeader(result.getString("group_header"))
                         .withFooter(result.getString("group_footer")));
