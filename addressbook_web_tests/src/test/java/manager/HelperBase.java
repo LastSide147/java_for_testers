@@ -2,6 +2,7 @@ package manager;
 
 import org.openqa.selenium.By;
 
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class HelperBase {
@@ -22,6 +23,11 @@ public class HelperBase {
     }
 
     protected void attach(By locator, String file) {
-        manager.driver.findElement(locator).sendKeys(Paths.get(file).toAbsolutePath().toString());
+//        manager.driver.findElement(locator).sendKeys(Paths.get(file).toAbsolutePath().toString());
+
+        if (file != null && !file.isBlank()) {
+            Path path = Paths.get(file).toAbsolutePath();
+            manager.driver.findElement(locator).sendKeys(path.toString());
+        }
     }
 }

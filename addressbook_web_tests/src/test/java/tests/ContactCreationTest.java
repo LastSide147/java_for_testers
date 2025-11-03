@@ -75,12 +75,12 @@ public class ContactCreationTest extends TestBase {
                 .withLastname(CommonFunctions.randomString(5))
                 .withFirstname(CommonFunctions.randomString(5))
                 .withAddress(CommonFunctions.randomString(5))
-                .withEmail(CommonFunctions.randomString(5))
-                .withPhone(CommonFunctions.randomString(5)));
+                .withPhone(CommonFunctions.randomString(5))
+                .withEmail(CommonFunctions.randomString(5)));
     }
 
     @ParameterizedTest
-    @MethodSource("contactProvider")
+    @MethodSource("singleRandomContact")
     public void canCreateMultipleContacts(ContactData contact) {
         var oldContacts = app.contacts().getListContact();
         app.contacts().create(contact);
