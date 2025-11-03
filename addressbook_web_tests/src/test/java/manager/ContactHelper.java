@@ -31,6 +31,28 @@ public class ContactHelper extends HelperBase{
         returnToContactPage();
     }
 
+    /// для задания 15 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void removeContactFromGroup(ContactData contact, GroupData group) {
+        initContactCreation();
+        fillForContact(contact);
+        submitCreateCreation();
+        returnToContactPage();
+        removeContact(group); // новое
+        returnToContactPage();
+    }
+
+    private void removeContact(GroupData group) {
+//        выбрать чек-бокс контакта, но какого?
+        new Select(manager.driver.findElement(By.name("to_group"))).selectByValue(group.id()); // выбор группы
+        click(By.name("add")); // добавление по кнопке
+        new Select(manager.driver.findElement(By.name("group"))).selectByValue(group.id()); // выбор группы в которую добавлен контакт
+        click(By.name("selected[]")); // выбор контака, как единственного на странице. Нужно как-то брать его из первого шага
+        click(By.name("remove"));
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
     private void selectGroup(GroupData group) {
         new Select(manager.driver.findElement(By.name("new_group"))).selectByValue(group.id());
     }
