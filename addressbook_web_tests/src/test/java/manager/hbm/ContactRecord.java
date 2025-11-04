@@ -1,8 +1,10 @@
 package manager.hbm;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import model.ContactData;
 
 @Entity
 @Table(name = "addressbook")
@@ -13,9 +15,10 @@ public class ContactRecord {
     public String firstname;
     public String lastname;
     public String address;
+
+    @Column(name="home")
     public String phone;
     public String email;
-
 
     public ContactRecord() {
     }

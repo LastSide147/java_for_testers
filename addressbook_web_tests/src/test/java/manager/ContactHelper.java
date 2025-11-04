@@ -71,7 +71,7 @@ public class ContactHelper extends HelperBase{
 
     public void modifyContact(ContactData contact, ContactData modifiedContact) {
         selectContact(contact);
-        initContactModification();
+        initContactModification(contact);
         fillContactForm(modifiedContact);
         submitContactModification();
         returnToHomePage();
@@ -86,11 +86,17 @@ public class ContactHelper extends HelperBase{
     }
 
     private void fillContactForm(ContactData contact) {
-        type(By.name("change firstname"), contact.firstname());
+//        type(By.name("firstname"), contact.firstname());
+        type(By.name("lastname"), contact.lastname());
+        type(By.name("firstname"), contact.firstname());
+        type(By.name("address"), contact.address());
+        type(By.name("mobile"), contact.phone());
+        type(By.name("email"), contact.email());
     }
 
-    private void initContactModification() {
-        click(By.cssSelector("a[href='edit.php?id=101'] img[alt='Edit']"));
+
+    private void initContactModification(ContactData contact) {
+        click(By.cssSelector(String.format("a[href='edit.php?id=%s'] img", contact.id())));
     }
 
     private void removeSelectedContact() {

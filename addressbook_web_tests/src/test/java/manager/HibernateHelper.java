@@ -34,7 +34,6 @@ public class HibernateHelper extends HelperBase{
         return result;
     }
 
-
     private static GroupData convert(GroupRecord record) {
         return new GroupData("" + record.id, record.name, record.header, record.footer);
     }
@@ -60,7 +59,7 @@ public class HibernateHelper extends HelperBase{
                 .withFirstname(record.firstname)
                 .withLastname(record.lastname)
                 .withAddress(record.address)
-//                .withPhone(record.phone)
+                .withPhone(record.phone)
                 .withEmail(record.email);
     }
 
@@ -101,6 +100,14 @@ public class HibernateHelper extends HelperBase{
         sessionFactory.inSession(session -> {
             session.getTransaction().begin();
             session.persist(convert(groupData));
+            session.getTransaction().commit();
+        });
+    }
+
+    public void createContact(ContactData contactData) {
+        sessionFactory.inSession(session -> {
+            session.getTransaction().begin();
+            session.persist(convert(contactData));
             session.getTransaction().commit();
         });
     }
