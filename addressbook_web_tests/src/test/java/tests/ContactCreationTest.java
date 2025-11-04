@@ -134,6 +134,7 @@ public class ContactCreationTest extends TestBase {
         var group = app.hbm().getGroupList().get(0);
 
         var oldRelated = app.hbm().getContactsInGroup(group);
+//        app.contacts().create(contact);
         app.contacts().removeContactFromGroup(contact, group);
         var newRelated = app.hbm().getContactsInGroup(group);
         Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());

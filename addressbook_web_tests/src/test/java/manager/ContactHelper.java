@@ -38,25 +38,56 @@ public class ContactHelper extends HelperBase{
         fillForContact(contact);
         submitCreateCreation();
         returnToContactPage();
-        removeContact(group); // новое
-        returnToContactPage();
+
+        selectContact(contact);
+        selectGroupFromAdd(group);
+        submitAddInGroup();
+        returnHome();
+        selectGroupOnMainPage(group);
+        selectContact(contact);
+        deleteContactFromGroup(group);
     }
 
-    private void removeContact(GroupData group) {
-//        выбрать чек-бокс контакта, но какого?
-        new Select(manager.driver.findElement(By.name("to_group"))).selectByValue(group.id()); // выбор группы
-        click(By.name("add")); // добавление по кнопке
-        new Select(manager.driver.findElement(By.name("group"))).selectByValue(group.id()); // выбор группы в которую добавлен контакт
-        click(By.name("selected[]")); // выбор контака, как единственного на странице. Нужно как-то брать его из первого шага
+    private void returnHome() {
+        click(By.linkText("home"));
+    }
+
+    private void selectGroupFromAdd(GroupData group) {
+        new Select(manager.driver.findElement(By.name("to_group"))).selectByValue(group.id());
+    }
+
+    private void submitAddInGroup() {
+        click(By.name("add"));
+    }
+
+    private void selectGroupOnMainPage(GroupData group) {
+        new Select(manager.driver.findElement(By.name("group"))).selectByValue(group.id());
+    }
+
+    private void deleteContactFromGroup(GroupData group) {
         click(By.name("remove"));
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    private void initContactCreation() {
+        click(By.linkText("add new"));
+    }
+
+    private void fillForContact(ContactData contact) {
+        type(By.name("firstname"), contact.firstname());
+        type(By.name("lastname"), contact.lastname());
+        type(By.name("address"), contact.address());
+        type(By.name("home"), contact.phone());
+        type(By.name("email"), contact.email());
+        attach(By.name("photo"), contact.photo());
+    }
 
     private void selectGroup(GroupData group) {
         new Select(manager.driver.findElement(By.name("new_group"))).selectByValue(group.id());
     }
 
+    private void submitCreateCreation() {
+        click(By.cssSelector("input:nth-child(75)"));
+    }
 
     public void remove(ContactData contact) {
         try {
@@ -106,23 +137,6 @@ public class ContactHelper extends HelperBase{
     private void selectContact(ContactData contact)
     {
         click(By.cssSelector(String.format("input[value='%s']", contact.id())));
-    }
-
-    private void initContactCreation() {
-        click(By.linkText("add new"));
-    }
-
-    private void fillForContact(ContactData contact) {
-        type(By.name("firstname"), contact.firstname());
-        type(By.name("lastname"), contact.lastname());
-        type(By.name("address"), contact.address());
-        type(By.name("home"), contact.phone());
-        type(By.name("email"), contact.email());
-        attach(By.name("photo"), contact.photo());
-    }
-
-    private void submitCreateCreation() {
-        click(By.cssSelector("input:nth-child(75)"));
     }
 
     private void returnToContactPage() {
