@@ -122,6 +122,8 @@ public class ContactCreationTest extends TestBase {
         Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());
     }
 
+    /// для задания 15 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @Test
     void canRemoveContactFromGroup() {
         var contact = new ContactData()
@@ -139,6 +141,9 @@ public class ContactCreationTest extends TestBase {
         var newRelated = app.hbm().getContactsInGroup(group);
         Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
     public static List<ContactData> negativeContactProvider() {

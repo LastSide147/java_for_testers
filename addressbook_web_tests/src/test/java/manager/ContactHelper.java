@@ -48,6 +48,8 @@ public class ContactHelper extends HelperBase{
         deleteContactFromGroup(group);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     private void returnHome() {
         click(By.linkText("home"));
     }
