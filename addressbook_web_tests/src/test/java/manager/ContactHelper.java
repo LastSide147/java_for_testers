@@ -115,7 +115,7 @@ public class ContactHelper extends HelperBase{
     }
 
     private void submitContactModification() {
-            click(By.name("update"));
+        click(By.name("update"));
     }
 
     private void fillContactForm(ContactData contact) {
@@ -173,5 +173,25 @@ public class ContactHelper extends HelperBase{
         for (var checkbox : checkboxes) {
             checkbox.click();
         }
+    }
+
+    public void addToGroup(ContactData contact, GroupData group) {
+        selectContactById(contact.id());
+        selectGroupToAdd(group);
+        submitAddToGroup();
+//        returnToContactPage();
+//        returnHome();
+    }
+
+    private void selectContactById(String id) {
+        manager.driver.findElement(By.cssSelector("input[value='" + id + "']")).click();
+    }
+
+    private void selectGroupToAdd(GroupData group) {
+        new Select(manager.driver.findElement(By.name("to_group"))).selectByValue(group.id());
+    }
+
+    private void submitAddToGroup() {
+        manager.driver.findElement(By.name("add")).click();
     }
 }
