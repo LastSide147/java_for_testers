@@ -14,11 +14,11 @@ public class ContactRemovalTest extends TestBase{
         if (app.hbm().getCountContact() == 0) {
             app.hbm().createContact(new ContactData("", "Java", "Tester", "Russia", "111222333", "test@mail.ru", ""));
         }
-        var oldContacts = app.hbm().GetContactList();
+        var oldContacts = app.hbm().getContactList();
         var rnd = new Random();
         var index = rnd.nextInt(oldContacts.size());
         app.contacts().remove(oldContacts.get(index));
-        var newContacts = app.hbm().GetContactList();
+        var newContacts = app.hbm().getContactList();
         var expectedList = new ArrayList<>(oldContacts);
         expectedList.remove(index);
         Assertions.assertEquals(newContacts, expectedList);

@@ -78,7 +78,7 @@ public class HibernateHelper extends HelperBase{
         }));
     }
 
-    public List<ContactData> GetContactList() {
+    public List<ContactData> getContactList() {
         return convertContactList(sessionFactory.fromSession(session -> {
             return session.createQuery("from ContactRecord", ContactRecord.class).list();
         }));

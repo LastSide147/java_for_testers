@@ -126,14 +126,15 @@ public class ContactCreationTest extends TestBase {
         if (app.hbm().getGroupList().isEmpty()) {
             app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
         }
-        if (app.hbm().GetContactList().isEmpty()) {
+        if (app.hbm().getContactList().isEmpty()) {
             var contact = new ContactData()
                     .withFirstname(CommonFunctions.randomString(10))
                     .withLastname(CommonFunctions.randomString(10))
                     .withPhoto(randomFile("src/test/resources/images"));
             app.contacts().create(contact);
         }
-        var contact = app.hbm().GetContactList().get(0);
+
+        var contact = app.hbm().getContactList().get(0);
         var allGroups = app.hbm().getGroupList();
         GroupData targetGroup = null;
 
@@ -156,6 +157,33 @@ public class ContactCreationTest extends TestBase {
         var newRelated = app.hbm().getContactsInGroup(targetGroup);
         Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());
     }
+
+    @Test
+    void canRemoveContactFromGroup() {
+        GroupData targetGroup = null;
+        ContactData targetContact = null;
+
+        for (var g : app.hbm().getGroupList()) {
+            var contactsInGroup = app.hbm().getContactsInGroup(g);
+            if (!contactsInGroup.isEmpty()) {
+                targetGroup = g;
+                targetContact = contactsInGroup.get(0);
+                break;
+            }
+        }
+
+        if (targetGroup == null || targetContact == null) {
+            System.out.println("No data");
+            return;
+        }
+
+        var oldRelated = app.hbm().getContactsInGroup(targetGroup);
+        app.contacts().removeFromGroup(targetContact, targetGroup);
+        var newRelated = app.hbm().getContactsInGroup(targetGroup);
+        Assertions.assertEquals(oldRelated.size() - 1, newRelated.size());
+        Assertions.assertFalse(newRelated.contains(targetContact));
+    }
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

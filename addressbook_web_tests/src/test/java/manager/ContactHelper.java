@@ -183,6 +183,14 @@ public class ContactHelper extends HelperBase{
 //        returnHome();
     }
 
+    public void removeFromGroup(ContactData targetContact, GroupData targetGroup) {
+        openGroupPage();
+        new Select(manager.driver.findElement(By.name("group"))).selectByValue(targetGroup.id());
+        manager.driver.findElement(By.cssSelector("input[value='" + targetContact.id() + "']")).click();
+        deleteContactFromGroup(targetGroup);
+    }
+
+
     private void selectContactById(String id) {
         manager.driver.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
@@ -193,5 +201,9 @@ public class ContactHelper extends HelperBase{
 
     private void submitAddToGroup() {
         manager.driver.findElement(By.name("add")).click();
+    }
+
+    private void openGroupPage() {
+        click(By.linkText("groups"));
     }
 }
