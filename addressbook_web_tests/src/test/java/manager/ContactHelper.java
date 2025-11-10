@@ -175,14 +175,14 @@ public class ContactHelper extends HelperBase{
         }
     }
 
+
+    // Задание 15 - создание контакта
+
     public void addToGroup(ContactData contact, GroupData group) {
         selectContactById(contact.id());
         selectGroupToAdd(group);
         submitAddToGroup();
-//        returnToContactPage();
-//        returnHome();
     }
-
 
     private void selectContactById(String id) {
         manager.driver.findElement(By.cssSelector("input[value='" + id + "']")).click();
@@ -196,15 +196,13 @@ public class ContactHelper extends HelperBase{
         manager.driver.findElement(By.name("add")).click();
     }
 
-    private void openGroupPage() {
-        click(By.linkText("groups"));
-    }
 
+    // Задание 15 - удаление контакта
 
     public void removeFromGroup(ContactData targetContact, GroupData targetGroup) {
         selectGroupInList(targetGroup);
         selectContactInGroup(targetContact);
-        sbmitRemoveFromGroup();
+        submitRemoveToContact();
 
         deleteContactFromGroup(targetGroup);
     }
@@ -217,7 +215,7 @@ public class ContactHelper extends HelperBase{
         manager.driver.findElement(By.cssSelector("input[value='" + targetContact.id() + "']")).click();
     }
 
-    private void sbmitRemoveFromGroup() {
+    private void submitRemoveToContact() {
         click(By.name("remove"));
     }
 }
