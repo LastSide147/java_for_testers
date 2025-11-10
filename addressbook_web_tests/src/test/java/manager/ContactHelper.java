@@ -183,13 +183,6 @@ public class ContactHelper extends HelperBase{
 //        returnHome();
     }
 
-    public void removeFromGroup(ContactData targetContact, GroupData targetGroup) {
-        openGroupPage();
-        new Select(manager.driver.findElement(By.name("group"))).selectByValue(targetGroup.id());
-        manager.driver.findElement(By.cssSelector("input[value='" + targetContact.id() + "']")).click();
-        deleteContactFromGroup(targetGroup);
-    }
-
 
     private void selectContactById(String id) {
         manager.driver.findElement(By.cssSelector("input[value='" + id + "']")).click();
@@ -205,5 +198,26 @@ public class ContactHelper extends HelperBase{
 
     private void openGroupPage() {
         click(By.linkText("groups"));
+    }
+
+
+    public void removeFromGroup(ContactData targetContact, GroupData targetGroup) {
+        selectGroupInList(targetGroup);
+        selectContactInGroup(targetContact);
+        sbmitRemoveFromGroup();
+
+        deleteContactFromGroup(targetGroup);
+    }
+
+    private void selectGroupInList(GroupData targetGroup) {
+        new Select(manager.driver.findElement(By.name("group"))).selectByValue(targetGroup.id());
+    }
+
+    private void selectContactInGroup(ContactData targetContact) {
+        manager.driver.findElement(By.cssSelector("input[value='" + targetContact.id() + "']")).click();
+    }
+
+    private void sbmitRemoveFromGroup() {
+        click(By.name("remove"));
     }
 }
