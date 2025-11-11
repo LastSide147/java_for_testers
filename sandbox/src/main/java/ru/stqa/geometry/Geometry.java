@@ -4,16 +4,17 @@ import geometry.figures.Rectangle;
 import geometry.figures.Square;
 import geometry.figures.Triangle;
 
+import java.util.List;
+import java.util.Random;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
+
 public class Geometry {
     public static void main(String[] args) {
-        Square.printSquareArea(new Square(7.0));
-        Square.printSquareArea(new Square(5.0));
-        Square.printSquareArea(new Square(3.0));
+        Supplier<Square> randomSquare = () -> new Square(new Random().nextDouble(100.0));
+        var squares = Stream.generate(randomSquare).limit(5);
 
-        Rectangle.printRectangleArea(3.0, 5.0);
-        Rectangle.printRectangleArea(14, 12);
-
-        Triangle.printTriangleArea(new Triangle(2.0, 3.0, 4.0));
-        Triangle.printTrianglePerimeter(new Triangle(2.0, 3.0, 4.0));
+        squares.peek(Square::area).forEach(Square::perimeter);
     }
 }
