@@ -203,8 +203,6 @@ public class ContactHelper extends HelperBase{
         selectGroupInList(targetGroup);
         selectContactInGroup(targetContact);
         submitRemoveToContact();
-
-        deleteContactFromGroup(targetGroup);
     }
 
     private void selectGroupInList(GroupData targetGroup) {
@@ -217,5 +215,10 @@ public class ContactHelper extends HelperBase{
 
     private void submitRemoveToContact() {
         click(By.name("remove"));
+    }
+
+
+    public void refreshPage() {
+        manager.driver.navigate().refresh();
     }
 }
