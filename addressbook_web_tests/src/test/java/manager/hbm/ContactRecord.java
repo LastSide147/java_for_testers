@@ -20,8 +20,8 @@ public class ContactRecord {
     public String work;
     public String phone2;
 
-    @Column(name="home")
-    public String phone;
+//    @Column(name="home")
+//    public String phone;
     public String email;
 
     public ContactRecord() {
@@ -32,7 +32,7 @@ public class ContactRecord {
         this.firstname = firstname;
         this.lastname = lastname;
         this.address = address;
-        this.phone = phone;
+//        this.phone = phone;
         this.email = email;
     }
 }
