@@ -221,4 +221,9 @@ public class ContactHelper extends HelperBase{
     public void refreshPage() {
         manager.driver.navigate().refresh();
     }
+
+    public String getPhones(ContactData contact) {
+        return manager.driver.findElement(By.xpath(
+                String.format("//input[@id='%s']/../..td[6]", contact.id()))).getText();
+    }
 }

@@ -191,7 +191,7 @@ public class ContactCreationTest extends TestBase {
 
     public static List<ContactData> negativeContactProvider() {
         var result = new ArrayList<ContactData>(List.of(
-                new ContactData("", "Static Name' ", "", "", "", "", "")));
+                new ContactData("", "Static Name' ", "", "", "", "", "", "", "", "", "")));
         return result;
     }
 
