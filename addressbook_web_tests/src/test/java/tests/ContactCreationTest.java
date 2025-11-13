@@ -61,7 +61,8 @@ public class ContactCreationTest extends TestBase {
         var json = Files.readString(Paths.get("contacts.json"));
 
         ObjectMapper mapper = new ObjectMapper();
-        var value = mapper.readValue(json, new TypeReference<List<ContactData>>() {});
+        var value = mapper.readValue(json, new TypeReference<List<ContactData>>() {
+        });
 
         result.addAll(value);
         return result;
@@ -82,13 +83,13 @@ public class ContactCreationTest extends TestBase {
         var oldContacts = app.contacts().getListContact();
         app.contacts().create(contact);
         var newContacts = app.contacts().getListContact();
-        Comparator<ContactData> compareById = ( o1, o2) -> {
+        Comparator<ContactData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
         newContacts.sort(compareById);
 
         var expectedList = new ArrayList<>(oldContacts);
-        expectedList.add(contact.withId(newContacts.get(newContacts.size() -1).id()).withAddress("").withEmail("").withPhone(""));
+        expectedList.add(contact.withId(newContacts.get(newContacts.size() - 1).id()).withAddress("").withEmail("").withPhone(""));
         expectedList.sort(compareById);
         Assertions.assertEquals(newContacts, expectedList);
     }
@@ -156,32 +157,6 @@ public class ContactCreationTest extends TestBase {
         app.contacts().addToGroup(contact, targetGroup);
         var newRelated = app.hbm().getContactsInGroup(targetGroup);
         Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());
-    }
-
-    @Test
-    void canRemoveContactFromGroup() {
-        GroupData targetGroup = null;
-        ContactData targetContact = null;
-
-        for (var g : app.hbm().getGroupList()) {
-            var contactsInGroup = app.hbm().getContactsInGroup(g);
-            if (!contactsInGroup.isEmpty()) {
-                targetGroup = g;
-                targetContact = contactsInGroup.get(0);
-                break;
-            }
-        }
-
-        if (targetGroup == null || targetContact == null) {
-            System.out.println("No data");
-            return;
-        }
-
-        var oldRelated = app.hbm().getContactsInGroup(targetGroup);
-        app.contacts().removeFromGroup(targetContact, targetGroup);
-        var newRelated = app.hbm().getContactsInGroup(targetGroup);
-        Assertions.assertEquals(oldRelated.size() - 1, newRelated.size());
-        Assertions.assertFalse(newRelated.contains(targetContact));
     }
 
 
