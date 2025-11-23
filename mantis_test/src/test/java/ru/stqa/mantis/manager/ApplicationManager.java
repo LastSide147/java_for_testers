@@ -8,13 +8,14 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import java.util.Properties;
 
 public class ApplicationManager {
-    private WebDriver driver;
+    public WebDriver driver;
     private String string;
     private Properties properties;
     private SessionHelper sessionHelper;
     private HttpSessionHelper httpSessionHelper;
     private JamesCliHelper jamesCliHelper;
     private MailHelper mailHelper;
+    private RegistrationHelper registrationHelper;
 
     public void init(String browser, Properties properties) {
         this.string = browser;
@@ -68,5 +69,12 @@ public class ApplicationManager {
 
     public String property(String name) {
         return properties.getProperty(name);
+    }
+
+    public RegistrationHelper registration() {
+        if(registrationHelper == null) {
+            registrationHelper = new RegistrationHelper(this);
+        }
+        return registrationHelper;
     }
 }

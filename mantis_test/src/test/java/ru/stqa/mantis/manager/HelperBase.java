@@ -1,5 +1,7 @@
 package ru.stqa.mantis.manager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -15,6 +17,8 @@ public class HelperBase {
         manager.driver().findElement(locator).click();
     }
 
+    protected WebDriver wd;
+
     protected void type(By locator, String text) {
         click(locator);
         manager.driver().findElement(locator).clear();
@@ -27,6 +31,5 @@ public class HelperBase {
     protected boolean isElementPresent(By locator) {
         return manager.driver().findElements(locator).size() > 0;
     }
-
 }
 

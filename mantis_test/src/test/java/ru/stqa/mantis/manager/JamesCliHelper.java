@@ -25,15 +25,5 @@ public class JamesCliHelper extends HelperBase{
                  .copyOutputTo(System.err)
                  .start()
                  .waitFor(Duration.ofHours(1));
-
-
-//         ProcessBuilder cmd = new ProcessBuilder(
-//                 "java",
-//                 "-cp",
-//                 "\"james-server-jpa-app.lib/*\"",
-//                 "org.apache.james.cli.ServerCmd",
-//                 "AddUser", email, password);
-//         cmd.execute();
-//         cmd.waitFor();
      }
 }

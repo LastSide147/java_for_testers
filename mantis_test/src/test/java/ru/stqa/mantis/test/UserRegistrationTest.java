@@ -1,31 +1,46 @@
 package ru.stqa.mantis.test;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.time.Duration;
+import java.util.regex.Pattern;
 
 public class UserRegistrationTest extends TestBase{
 
     @Test
-    void canRegisterUser(String username) {
-        var email = String.format("%s@localhost", username);
-        // 1. создать пользователя (адрес) на почтовом сервере (JamesHelper)
-        //   здесь нужно подключить выполнение canCreateUser() из JamesTest ?
+    void canRegisterUser() throws Exception {
+//         1. создать пользователя (адрес) на почтовом сервере (JamesHelper)
+        app.jamesCli().addUser("homework@localhost", "password");
+
+//      Вход в мантис
+        app.http().login("administrator", "root");
+        Assertions.assertTrue(app.http().isLoggedIn());
 
         // 2. заполняем форму создания и отправляем (браузер)
-        // Здесь нужно как при создании контактов разбить на кучу методов?
-        click(By.linkText("Manage"));
-        click(By.linkText("Users"));
-        click(By.linkText("Users"));
-        drivers.findElement(By.id("user-username")).sendKeys("homework");
-        drivers.findElement(By.id("user-realname")).sendKeys("homework");
-        drivers.findElement(By.id("email-field")).sendKeys("homework@localhost");
-        click(By.linkText("Create User")); //driver.findElement(By.xpath("//input[@value='Create User']")).click();
-        click(By.linkText("Proceed"));
+        app.registration().loginAdminUI();
+        app.registration().createUser();
 
         // 3. ждём почту (MailHelper)
-        // создается пользователь в mantis. Но как получить ссылку на его почту не увидел.
+        var messages = app.mail().receive("homework@localhost", "password", Duration.ofSeconds(60));
+        var text = messages.get(0).content();
+        var pattern = Pattern.compile("http://\\S*");
+        var matcher = pattern.matcher(text);
+        String url = null;
+        if(matcher.find()) {
+            url = text.substring(matcher.start(), matcher.end());
+            System.out.println(url);
+        }
+        // 4. извлекаем ссылку из письма
 
-        // извлекаем ссылку из письма
-        // проходим по ссылке и завершаем регистрацию (браузер)
-        // проверяем, что пользователь может залогиниться (HttpSessionHelper)
+
+        // 5. проходим по ссылке и завершаем регистрацию (браузер)
+        app.driver().get(url);
+//        app.registration().newDataForLogin();ы
+//
+//        // 6. проверяем, что пользователь может залогиниться (HttpSessionHelper)
+//        app.http().login("homework", "pass");
+//        Assertions.assertTrue(app.http().isLoggedIn());
+
     }
 }
