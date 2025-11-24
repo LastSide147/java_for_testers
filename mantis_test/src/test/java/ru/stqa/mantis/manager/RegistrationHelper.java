@@ -16,20 +16,21 @@ public class RegistrationHelper extends HelperBase {
         click(By.cssSelector("input[type='submit']"));
     }
 
-    public void createUser() {
+    public void createUser(String username, String email) {
         click(By.linkText("Manage"));
         click(By.linkText("Users"));
         click(By.linkText("Create New Account"));
-        manager.driver.findElement(By.id("user-username")).sendKeys("homework");
-        manager.driver.findElement(By.id("user-realname")).sendKeys("homework");
-        manager.driver.findElement(By.id("email-field")).sendKeys("homework@localhost");
+
+        manager.driver().findElement(By.id("user-username")).sendKeys(username);
+        manager.driver().findElement(By.id("user-realname")).sendKeys(username);
+        manager.driver().findElement(By.id("email-field")).sendKeys(email);
         manager.driver.findElement(By.xpath("//input[@value='Create User']")).click();
         click(By.linkText("Proceed"));
     }
 
     public void newDataForLogin() {
-        manager.driver.findElement(By.id("realname")).sendKeys("new name");
         manager.driver.findElement(By.id("password")).sendKeys("pass");
-        click(By.linkText("Update User"));
+        manager.driver.findElement(By.id("password-confirm")).sendKeys("pass");
+        click(By.cssSelector("button.btn.btn-success"));
     }
 }
