@@ -11,15 +11,15 @@ public record IssueData(String summary, String description, Long project, Long c
     }
 
     public IssueData WithDescription(String description) {
-        return new IssueData(this.summary, description(), this.project(), this.category());
+        return new IssueData(this.summary, description, this.project(), this.category());
     }
 
     public IssueData WithProject(Long project) {
-        return new IssueData(this.summary, this.description(), project(), this.category());
+        return new IssueData(this.summary, this.description(), project, this.category());
     }
 
     public IssueData WithCategory(Long category) {
-        return new IssueData(this.summary, this.description(), this.project(), category());
+        return new IssueData(this.summary, this.description(), this.project(), category);
     }
 }
 

@@ -32,7 +32,7 @@ public class ReatApiHelper extends HelperBase {
         try {
             apiInstance.issueAdd(issue);
         } catch (ApiException e) {
-            new RuntimeException(e);
+            throw new RuntimeException(e);
         }
     }
 }
