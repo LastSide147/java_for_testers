@@ -1,5 +1,6 @@
 package ru.stqa.mantis.manager;
 
+import com.google.errorprone.annotations.RestrictedApi;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,6 +18,7 @@ public class ApplicationManager {
     private MailHelper mailHelper;
     private RegistrationHelper registrationHelper;
     private JamesApiHelper jamesApiHelper;
+    private ReatApiHelper restApiHelper;
 
     public void init(String browser, Properties properties) {
         this.string = browser;
@@ -75,14 +77,24 @@ public class ApplicationManager {
         return mailHelper;
     }
 
-    public String property(String name) {
-        return properties.getProperty(name);
-    }
-
     public RegistrationHelper registration() {
         if(registrationHelper == null) {
             registrationHelper = new RegistrationHelper(this);
         }
         return registrationHelper;
     }
+
+
+    public ReatApiHelper rest() {
+        if(restApiHelper == null) {
+            restApiHelper = new ReatApiHelper(this);
+        }
+        return restApiHelper;
+    }
+
+    public String property(String name) {
+        return properties.getProperty(name);
+    }
+
 }
+
