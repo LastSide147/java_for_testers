@@ -6,12 +6,14 @@ import org.junit.jupiter.api.Test;
 import java.time.Duration;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import ru.stqa.mantis.common.CommonFunctions;
 
 public class UserRegistrationTest extends TestBase{
 
     @Test
     void canRegisterUser() throws Exception {
-
         String id = RandomStringUtils.randomAlphanumeric(2).toLowerCase();
         String username = "user" + id;
         String email = username + "@localhost";
@@ -49,5 +51,21 @@ public class UserRegistrationTest extends TestBase{
         app.http().login(username, "pass");
         Assertions.assertTrue(app.http().isLoggedIn());
 
+    }
+
+    @ParameterizedTest
+    @MethodSource("randomUser")
+    void canCreate(String user) throws InterruptedException {
+        var email = String.format("%s@localhost", user);
+        var password = "password";
+        app.jamesApi().addUser(email, password);
+
+        app.user().startCreation(user);
+
+        var messages = app.mail().receive(email, password, Duration.ofSeconds(10));
+        var url = CommonFunctions.extractUrl(messages.get(0).content());
+
+        app.user().finishCreation(url, password);
+        Assertions.assertTrue(app.http().isLoggedIn());
     }
 }
