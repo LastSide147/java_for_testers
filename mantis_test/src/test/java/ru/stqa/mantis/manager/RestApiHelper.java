@@ -4,14 +4,18 @@ import io.swagger.client.ApiClient;
 import io.swagger.client.ApiException;
 import io.swagger.client.Configuration;
 import io.swagger.client.api.IssuesApi;
+import io.swagger.client.api.UserApi;
 import io.swagger.client.auth.ApiKeyAuth;
+import io.swagger.client.model.AccessLevel;
 import io.swagger.client.model.Identifier;
 import io.swagger.client.model.Issue;
+import io.swagger.client.model.User;
 import ru.stqa.mantis.model.IssueData;
+import ru.stqa.mantis.model.UserData;
 
-public class ReatApiHelper extends HelperBase {
+public class RestApiHelper extends HelperBase {
 
-    public ReatApiHelper(ApplicationManager manager) {
+    public RestApiHelper(ApplicationManager manager) {
         super(manager);
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         ApiKeyAuth Authorization = (ApiKeyAuth) defaultClient.getAuthentication("Authorization");
@@ -34,5 +38,24 @@ public class ReatApiHelper extends HelperBase {
         } catch (ApiException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public User createUser(UserData userData) {
+        User user = new User();
+        user.setUsername(userData.username());
+        user.setRealName(userData.realName());
+        user.setEmail(userData.email());
+
+        AccessLevel accessLevel = new AccessLevel();
+        accessLevel.setId(10L);
+        user.setAccessLevel(accessLevel);
+
+        UserApi api = new UserApi();
+        try {
+            api.userAdd(user);
+        } catch (ApiException e) {
+            throw new RuntimeException(e);
+        }
+        return user;
     }
 }

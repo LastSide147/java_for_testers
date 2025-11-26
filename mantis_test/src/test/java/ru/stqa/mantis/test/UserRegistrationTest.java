@@ -9,6 +9,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.stqa.mantis.common.CommonFunctions;
+import ru.stqa.mantis.model.UserData;
 
 public class UserRegistrationTest extends TestBase{
 
@@ -53,19 +54,42 @@ public class UserRegistrationTest extends TestBase{
 
     }
 
-//    @ParameterizedTest
-//    @MethodSource("randomUser")
-//    void canCreate(String user) throws InterruptedException {
-//        var email = String.format("%s@localhost", user);
-//        var password = "password";
-//        app.jamesApi().addUser(email, password);
-//
-//        app.user().startCreation(user);
-//
-//        var messages = app.mail().receive(email, password, Duration.ofSeconds(10));
-//        var url = CommonFunctions.extractUrl(messages.get(0).content());
-//
-//        app.user().finishCreation(url, password);
-//        Assertions.assertTrue(app.http().isLoggedIn());
-//    }
+    @Test
+     void canRegisterUserWithRestApi() throws Exception {
+        String username = CommonFunctions.randomString(5);
+        String email = username + "@localhost";
+        String password = "password";
+        System.out.println(email);
+
+        // 1. Создаём пользователя на сервере James
+        app.jamesApi().addUser(email, password);
+
+        // 2. Инициируем регистрацию в Mantis через REST
+
+        var userData = new UserData()
+                .WithUsername(username)
+                .WithRealName(username)
+                .WithEmail(email);
+
+        app.rest().createUser(userData);
+
+        // 3. ждём почту (MailHelper) и извлекаем ссылку из письма
+        var messages = app.mail().receive(email, "password", Duration.ofSeconds(60));
+        var text = messages.get(0).content();
+        var pattern = Pattern.compile("http://\\S*");
+        var matcher = pattern.matcher(text);
+        String url = null;
+        if(matcher.find()) {
+            url = text.substring(matcher.start(), matcher.end());
+            System.out.println(url);
+        }
+
+        // 4. проходим по ссылке и завершаем регистрацию (браузер)
+        app.driver().get(url);
+        app.registration().newDataForLogin();
+
+        // 5. проверяем, что пользователь может залогиниться (HttpSessionHelper)
+        app.http().login(username, "pass");
+        Assertions.assertTrue(app.http().isLoggedIn());
+    }
 }
