@@ -13,4 +13,12 @@ public class IssueCreationsTests extends TestBase {
                 .WithDescription(CommonFunctions.randomString(10))
                 .WithProject(1L));
     }
+
+    @Test
+    void canCreateIssueWithSoap() {
+        app.soap().createIssue(new IssueData()
+                .WithSummary(CommonFunctions.randomString(10))
+                .WithDescription(CommonFunctions.randomString(10))
+                .WithProject(1L));
+    }
 }
