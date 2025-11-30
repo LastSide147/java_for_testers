@@ -30,7 +30,6 @@ public class GroupRemovalTest extends TestBase {
         });
     }
 
-
     @Test
     void canRemoveAllGroupsAtOnce () {
         if (app.hbm().getGroupCount() == 0) {
